@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.recyclerview.ui.OnlyText.OnlyTextFragment"
+        android:label="Только текст"
+         />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.example.recyclerview.ui.OnlyCartoon.OnlyCartoonFragment"
+        android:label="Список картинок"
+         />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.recyclerview.ui.TextWithCartoonTogether.TextWithCartoonTogetherFragment"
+        android:label="Текст с картинками(совмещённый)"
+         />
+
+    <fragment
+        android:id="@+id/nav_text"
+        android:name="com.example.recyclerview.ui.TextWithCartoonsSeparately.TextWithCartoonsSeparatelyFragment"
+        android:label="Текст с картинками(разделённый)"
+        />
+</navigation>
