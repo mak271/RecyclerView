@@ -26,7 +26,7 @@ class TextWithCartoonsSeparatelyFragment: Fragment() {
             ViewModelProvider(this).get(TextWithCartoonsSeparatelyViewModel::class.java)
         val root = inflater.inflate(R.layout.main_content, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.rcView)
-        recyclerView.adapter = MyAdapterOnlyCartoons(fillImg())
+
 
         textWithCartoonTogetherViewModel.text.observe(viewLifecycleOwner, Observer {
             recyclerView.layoutManager = LinearLayoutManager(context)
@@ -40,11 +40,11 @@ class TextWithCartoonsSeparatelyFragment: Fragment() {
         return this.resources.getStringArray(R.array.cat_names).toList()
     }
 
-    private fun fillImg(): IntArray {
+    private fun fillImg(): List<Int> {
         return this.getImageId(R.array.cat_image)
     }
 
-    private fun getImageId(imageArrayId:Int):IntArray
+    private fun getImageId(imageArrayId:Int):List<Int>
     {
         val tArray: TypedArray = resources.obtainTypedArray(imageArrayId)
         val count = tArray.length()
@@ -54,7 +54,7 @@ class TextWithCartoonsSeparatelyFragment: Fragment() {
             ids[i] = tArray.getResourceId(i,0)
         }
         tArray.recycle()
-        return ids
+        return ids.toList()
     }
 
 }

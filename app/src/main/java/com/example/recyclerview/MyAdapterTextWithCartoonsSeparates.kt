@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class MyAdapterTextWithCartoonsSeparates (private val name: List<String>, private val img: IntArray) : RecyclerView.Adapter<MyAdapterTextWithCartoonsSeparates.MyViewHolder>() {
+class MyAdapterTextWithCartoonsSeparates (private val name: List<String>, private val img: List<Int>) : RecyclerView.Adapter<MyAdapterTextWithCartoonsSeparates.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

@@ -36,11 +36,11 @@ class OnlyCartoonFragment : Fragment() {
         return root
     }
 
-    private fun fill() : IntArray {
+    private fun fill() : List<Int> {
         return this.getImageId(R.array.cat_image)
     }
 
-    fun getImageId(imageArrayId:Int):IntArray
+    fun getImageId(imageArrayId:Int):List<Int>
     {
         val tArray: TypedArray = resources.obtainTypedArray(imageArrayId)
         val count = tArray.length()
@@ -50,7 +50,7 @@ class OnlyCartoonFragment : Fragment() {
             ids[i] = tArray.getResourceId(i,0)
         }
         tArray.recycle()
-        return ids
+        return ids.toList()
     }
 
 }

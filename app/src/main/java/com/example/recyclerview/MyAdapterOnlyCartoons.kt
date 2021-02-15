@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class MyAdapterOnlyCartoons(private val image: IntArray) : RecyclerView.Adapter<MyAdapterOnlyCartoons.MyViewHolder>() {
+class MyAdapterOnlyCartoons(private val image: List<Int>) : RecyclerView.Adapter<MyAdapterOnlyCartoons.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val listID: Int = R.layout.list_item_image
