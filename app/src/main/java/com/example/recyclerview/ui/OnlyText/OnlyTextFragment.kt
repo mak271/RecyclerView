@@ -23,17 +23,17 @@ class OnlyTextFragment : Fragment() {
     ): View? {
         onlyTextViewModel = ViewModelProvider(this).get(OnlyTextViewModel::class.java)
         val root = inflater.inflate(R.layout.main_content, container, false)
-        val recyclerView: RecyclerView = root.findViewById(R.id.rcView)
+        val recyclerView: RecyclerView = root.findViewById(R.id.rcView) // находим  RecyclerView
 
         onlyTextViewModel.text.observe(viewLifecycleOwner, Observer {
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = MyAdapterOnlyText(fill())
+            recyclerView.layoutManager = LinearLayoutManager(context)  // список будет по умолчанию вертикальным
+            recyclerView.setHasFixedSize(true)                         // список будет определённого размера
+            recyclerView.adapter = MyAdapterOnlyText(fill())           // передаём метод fill() адаптеру
         })
         return root
     }
 
-    private fun fill() : List<String> {
+    private fun fill() : List<String> {                                // метод для получения списка котов из ресурсов
         return this.resources.getStringArray(R.array.text).toList()
     }
 }
