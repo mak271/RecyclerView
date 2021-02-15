@@ -16,10 +16,8 @@ import com.example.recyclerview.*
 import me.relex.circleindicator.CircleIndicator3
 
 class ViewPagerFragment: Fragment() {
-
-    companion object {
-        lateinit var view_pager: ViewPager2
-    }
+    
+    private lateinit var view_pager: ViewPager2
 
     private lateinit var textWithCartoonTogetherViewModel: ViewPagerViewModel
 
@@ -33,7 +31,8 @@ class ViewPagerFragment: Fragment() {
         val root = inflater.inflate(R.layout.view_pager_main, container, false)
 
         val btnNext: Button = root.findViewById(R.id.btn_next)
-        btnNext.setOnClickListener { val current = view_pager.currentItem
+        btnNext.setOnClickListener { 
+            val current = view_pager.currentItem
             val items: Int = ViewPagerAdapter(fillNames(), fillImages()).itemCount
             if (current < items - 1)
                 view_pager.setCurrentItem(current + 1, true) }
