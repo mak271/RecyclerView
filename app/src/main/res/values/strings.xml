@@ -71,4 +71,20 @@
         <item>Следует сказать, что при работе с ним приходится писать много кода, который пугает новичков. Если с RecyclerView работать не постоянно, то порой забываются детали и сложно вспомнить необходимые шаги. Многие просто сохраняют отдельные шаблоны и копируют в разные проекты.</item>
         <item>Внешний вид можно представить не только в виде обычного списка, но и в виде сетки. При необходимости можно быстро переключиться между разными типами отображения.</item>
     </string-array>
+
+    <string-array name="cats">
+        <item>Рыжик</item>
+        <item>Барсик</item>
+        <item>Мурзик</item>
+        <item>Мурка</item>
+        <item>Васька</item>
+    </string-array>
+
+    <array name="cats_cartoons">
+        <item>@drawable/cat1</item>
+        <item>@drawable/cat2</item>
+        <item>@drawable/cat4</item>
+        <item>@drawable/cat5</item>
+        <item>@drawable/cat7</item>
+    </array>
 </resources>

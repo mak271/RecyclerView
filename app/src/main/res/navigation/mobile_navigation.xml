@@ -28,4 +28,10 @@
         android:name="com.example.recyclerview.ui.TextWithCartoonsSeparately.TextWithCartoonsSeparatelyFragment"
         android:label="Текст с картинками(разделённый)"
         />
+
+    <fragment
+        android:id="@+id/nav_view_pager"
+        android:name="com.example.recyclerview.ui.TextWithCartoonsSeparately.ViewPagerFragment"
+        android:label="ViewPager2"
+        />
 </navigation>
