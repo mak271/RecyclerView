@@ -31,7 +31,13 @@
 
     <fragment
         android:id="@+id/nav_view_pager"
-        android:name="com.example.recyclerview.ui.TextWithCartoonsSeparately.ViewPagerFragment"
+        android:name="com.example.recyclerview.ui.ViewPager2.ViewPagerFragment"
         android:label="ViewPager2"
+        />
+
+    <fragment
+        android:id="@+id/nav_notification"
+        android:name="com.example.recyclerview.ui.Notification.NotificationFragment"
+        android:label="Уведомления"
         />
 </navigation>

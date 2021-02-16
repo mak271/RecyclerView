@@ -1,4 +1,4 @@
-package com.example.recyclerview.ui.TextWithCartoonsSeparately
+package com.example.recyclerview.ui.ViewPager2
 
 import android.view.LayoutInflater
 import android.view.View

@@ -14,24 +14,19 @@ import com.example.recyclerview.R
 
 class OnlyCartoonFragment : Fragment() {
 
-    private lateinit var onlyCartoonViewModel: OnlyCartoonViewModel
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        onlyCartoonViewModel =
-                ViewModelProvider(this).get(OnlyCartoonViewModel::class.java)
+
         val root = inflater.inflate(R.layout.main_content, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.rcView)
 
-        onlyCartoonViewModel.text.observe(viewLifecycleOwner, Observer {
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = MyAdapterOnlyCartoons(fill())
 
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = MyAdapterOnlyCartoons(fill())
-        })
         return root
     }
 

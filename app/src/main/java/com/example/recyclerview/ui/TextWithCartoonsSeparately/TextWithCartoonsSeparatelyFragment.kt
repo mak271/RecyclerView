@@ -14,24 +14,18 @@ import com.example.recyclerview.*
 
 class TextWithCartoonsSeparatelyFragment: Fragment() {
 
-    private lateinit var textWithCartoonTogetherViewModel: TextWithCartoonsSeparatelyViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        textWithCartoonTogetherViewModel =
-            ViewModelProvider(this).get(TextWithCartoonsSeparatelyViewModel::class.java)
+
         val root = inflater.inflate(R.layout.main_content, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.rcView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = MyAdapterTextWithCartoonsSeparates(fillText(), fillImg())
 
-
-        textWithCartoonTogetherViewModel.text.observe(viewLifecycleOwner, Observer {
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = MyAdapterTextWithCartoonsSeparates(fillText(), fillImg())
-        })
         return root
     }
 
