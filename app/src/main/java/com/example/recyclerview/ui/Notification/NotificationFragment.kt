@@ -59,7 +59,7 @@ class NotificationFragment: Fragment() {
 
         val btnSnackbar: Button = root.findViewById(R.id.btn_snackbar)
         btnSnackbar.setOnClickListener {
-            val snackbar = Snackbar.make(it, "Сегодня $day, время $time \nНажата кнопка Snackbar", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(it, "Сегодня $day, время $time \nНажата кнопка Snackbar", Snackbar.LENGTH_SHORT).show()
         }
 
         return root

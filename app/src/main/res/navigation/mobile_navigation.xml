@@ -40,4 +40,10 @@
         android:name="com.example.recyclerview.ui.Notification.NotificationFragment"
         android:label="Уведомления"
         />
+
+    <fragment
+        android:id="@+id/nav_photo"
+        android:name="com.example.recyclerview.ui.Photo.Photo"
+        android:label="Выбор фотографий"
+        />
 </navigation>
