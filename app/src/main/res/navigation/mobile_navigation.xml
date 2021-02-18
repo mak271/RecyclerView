@@ -46,4 +46,16 @@
         android:name="com.example.recyclerview.ui.Photo.Photo"
         android:label="Выбор фотографий"
         />
+
+    <fragment
+        android:id="@+id/nav_web_view"
+        android:name="com.example.recyclerview.ui.WebView.WebView"
+        android:label="Web View"
+        />
+
+    <fragment
+        android:id="@+id/nav_database"
+        android:name="com.example.recyclerview.ui.Database.Database"
+        android:label="База данных"
+        />
 </navigation>
