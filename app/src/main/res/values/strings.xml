@@ -87,4 +87,6 @@
         <item>@drawable/cat5</item>
         <item>@drawable/cat7</item>
     </array>
+
+    <string name="database_text_number">%1$d)</string>
 </resources>

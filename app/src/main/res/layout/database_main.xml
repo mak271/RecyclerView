@@ -1,83 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/etSearch"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="search"
+        android:orientation="horizontal">
 
-        android:inputType="text"
-        app:layout_constraintEnd_toStartOf="@id/bSearch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/search_editText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Введите номер"/>
 
-    <Button
-        android:id="@+id/bSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Поиск"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Поиск"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvDatabasePreview"
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/clBottomMenu"
-        app:layout_constraintTop_toBottomOf="@id/etSearch"
-         />
+        android:layout_height="350dp"
+        />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clBottomMenu"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="@dimen/activity_horizontal_margin"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:orientation="vertical"
+        >
 
         <EditText
-            android:id="@+id/etNumber"
-            android:layout_width="0dp"
+            android:id="@+id/year_editText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="number"
-            android:inputType="number"
-            app:layout_constraintEnd_toStartOf="@+id/etDesc"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/bInsert"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Вставить"
-            app:layout_constraintEnd_toStartOf="@+id/bDelete"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etNumber" />
+            android:hint="Введите номер"/>
 
         <EditText
-            android:id="@+id/etDesc"
-            android:layout_width="0dp"
+            android:id="@+id/name_editText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="description"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/etNumber"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:hint="Введите имя"/>
 
-        <Button
-            android:id="@+id/bDelete"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Удалить"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/bInsert"
-            app:layout_constraintTop_toBottomOf="@id/etDesc" />
+            android:orientation="horizontal">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Save"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Delete"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
