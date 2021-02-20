@@ -58,4 +58,10 @@
         android:name="com.example.recyclerview.ui.Database.Database"
         android:label="База данных"
         />
+
+    <fragment
+        android:id="@+id/nav_JSON"
+        android:name="com.example.recyclerview.ui.JSON.JSON"
+        android:label="JSON"
+        />
 </navigation>

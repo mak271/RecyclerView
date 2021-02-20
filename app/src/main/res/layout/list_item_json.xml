@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="12sp">
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/roundedImageView_radio"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/cat1"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_name_radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="18dp"
+        android:layout_toEndOf="@+id/roundedImageView_radio"
+        android:fontFamily="monospace"
+        android:text="Europa Plus"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/tv_stream_radio"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/tv_name_radio"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="monospace"
+        android:text="https://rusradio.hostingradio.ru/rusradio96.aacp"
+        android:textSize="14dp" />
+
+
+
+</RelativeLayout>
