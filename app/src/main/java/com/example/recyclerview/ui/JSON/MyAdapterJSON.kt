@@ -20,7 +20,6 @@ class MyAdapterJSON(private val itemList: List<RadioModel>): RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
         val item = itemList[position]
 
         holder.apply {

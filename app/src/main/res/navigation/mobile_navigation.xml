@@ -64,4 +64,10 @@
         android:name="com.example.recyclerview.ui.JSON.JSON"
         android:label="JSON"
         />
+
+    <fragment
+        android:id="@+id/nav_databaseORM"
+        android:name="com.example.recyclerview.ui.DatabaseORM.DatabaseORMFragment"
+        android:label="База данных (ORM)"
+        />
 </navigation>
