@@ -70,4 +70,10 @@
         android:name="com.example.recyclerview.ui.DatabaseORM.DatabaseORMFragment"
         android:label="База данных (ORM)"
         />
+
+    <fragment
+        android:id="@+id/nav_network"
+        android:name="com.example.recyclerview.ui.NetworkRequests.NetworkRequest"
+        android:label="Сетевые запросы"
+        />
 </navigation>
