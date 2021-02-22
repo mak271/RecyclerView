@@ -50,7 +50,18 @@ suspend fun makePostRequest(): String {
             put("userId", 666)
         }
 
+         // "lat":57,"lon":41,"timezone":"Europe/Moscow","timezone_offset":10800
+
+//        val dates = JSONObject()
+//        dates.apply {
+//            put("id", 666)
+//            put("main", "To the HELL")
+//            put("description", "Lucifer")
+//        }
+
         try {
+
+            //val url = URL("https://api.openweathermap.org/data/2.5/onecall?lat=57&lon=41&exclude=minutely,hourly&units=metric&&lang=en&appid=891a6b403aaa5b51c2d5612a5c717d3e")
 
             val url = URL("https://jsonplaceholder.typicode.com/posts")
             val httpsURLConnection = url.openConnection() as HttpsURLConnection
@@ -64,7 +75,7 @@ suspend fun makePostRequest(): String {
             val outputStream = BufferedOutputStream(httpsURLConnection.outputStream)
             val writer = BufferedWriter(OutputStreamWriter(outputStream, "UTF-8"))
             writer.write(dates.toString())
-            writer.close()
+            writer.flush()
 
             buffer = BufferedReader(InputStreamReader(httpsURLConnection.inputStream))
             val builder = StringBuilder()
