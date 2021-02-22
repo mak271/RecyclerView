@@ -12,28 +12,19 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
     companion object {
         private const val DATABASE_NAME = "cats.db"
         private const val SCHEMA = 1
-
         const val TABLE = "cats"
-
-
         const val COLUMN_ID = "_id"
         const val COLUMN_NAME = "name"
         const val COLUMN_NUMBER = "year"
     }
 
-
-
     override fun onCreate(db: SQLiteDatabase?) {
-
         db?.execSQL("CREATE TABLE $TABLE ($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COLUMN_NUMBER INTEGER, $COLUMN_NAME TEXT)")
-
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-
         db?.execSQL("DROP TABLE IF EXISTS $TABLE")
         onCreate(db)
-
     }
 
 }

@@ -95,9 +95,7 @@ class DatabaseORMFragment: Fragment() {
                 GlobalScope.launch(Dispatchers.IO) {
                     val searchText = search.text.toString()
                     if (searchText == "")
-                    {
                         reload(adapter)
-                    }
                     else {
                         val searchList = daoDatabaseORM?.selectByName("%$searchText%")
                         if (searchList != null)

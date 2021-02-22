@@ -33,7 +33,7 @@ class MyAdapterDatabase(private val image: List<Int>): RecyclerView.Adapter<MyAd
         Picasso.get().load(image[position]).into(holder.imageView)
         val item = itemList[position]
         holder.yearView.text = item.number.toString()
-        holder.nameView.text = item.description
+        holder.nameView.text = item.name
 
     }
 

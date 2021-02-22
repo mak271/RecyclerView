@@ -61,17 +61,11 @@ class Database: Fragment() {
         databaseHelper = DatabaseHelper(requireContext())
 
         database = databaseHelper?.writableDatabase // получаем БД для чтения из DatabaseHelper
-        userCursor = database?.rawQuery("SELECT * FROM ${DatabaseHelper.TABLE}", null) // курсор делает запросы в БД
         recyclerView = root.findViewById(R.id.list)
         recyclerView?.layoutManager = LinearLayoutManager(context)
         databaseAdapter = MyAdapterDatabase(fill())
         recyclerView?.adapter = databaseAdapter
         reloadRecyclerList()
-
-        userCursor = database?.rawQuery("SELECT * FROM ${DatabaseHelper.TABLE} WHERE ${DatabaseHelper.COLUMN_ID} =?", arrayOf(userID.toString()))
-        userCursor?.moveToFirst()
-        userCursor?.close()
-
 
         delete?.setOnClickListener {
             delete()
@@ -123,6 +117,7 @@ class Database: Fragment() {
             database?.update(DatabaseHelper.TABLE, content, DatabaseHelper.COLUMN_ID + "=" + userID.toString(), null)
         else
             database?.insert(DatabaseHelper.TABLE, null, content)
+
         number!!.text.clear()
         name!!.text.clear()
         reloadRecyclerList()
