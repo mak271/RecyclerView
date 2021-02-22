@@ -1,6 +1,5 @@
 package com.example.recyclerview.ui.DatabaseORM
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,8 @@ import com.squareup.picasso.Picasso
 
 class MyAdapterDatabaseORM(val image: List<Int>): RecyclerView.Adapter<MyAdapterDatabaseORM.MyViewGolder>() {
 
-    private var context: Context? = null
     private var listItem = mutableListOf<DatabaseORMModel>()
-    private val imagesCount = 6
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewGolder {
         val layoutID: Int = R.layout.list_item_databaseorm
@@ -26,16 +24,10 @@ class MyAdapterDatabaseORM(val image: List<Int>): RecyclerView.Adapter<MyAdapter
 
         val item = listItem[position]
 
-
         holder.apply {
             tvNumber.text = item.number.toString()
             tvName.text = item.name
             Picasso.get().load(image[position]).into(tvImage)
-
-//            context?.let {
-//                val imageRes = Utils.getCatDrawableResource(item.number, it)
-//                Glide.with(it).load(imageRes).into(tvImage)
-//            }
 
         }
 

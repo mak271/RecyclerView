@@ -13,8 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recyclerview.R
 import com.squareup.picasso.Picasso
+import okhttp3.internal.closeQuietly
+import okhttp3.internal.notify
+import okhttp3.internal.notifyAll
 
-class MyAdapterDatabase(private var userCursor: Cursor, private val image: List<Int>): RecyclerView.Adapter<MyAdapterDatabase.MyViewHolder>() {
+class MyAdapterDatabase(private val image: List<Int>): RecyclerView.Adapter<MyAdapterDatabase.MyViewHolder>() {
+
+    private val itemList = mutableListOf<DatabaseModel>()
 
     var context: Context? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -26,22 +31,22 @@ class MyAdapterDatabase(private var userCursor: Cursor, private val image: List<
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         Picasso.get().load(image[position]).into(holder.imageView)
-        userCursor.moveToPosition(position)
-        holder.bind(userCursor)
+        val item = itemList[position]
+        holder.yearView.text = item.number.toString()
+        holder.nameView.text = item.description
 
-        //context?.let { Glide.with(it).load(image[position]).into(holder.imageView)}
     }
 
-    fun updateAdapter(sql: SQLiteDatabase, dbHelper: DatabaseHelper)
+    fun updateAdapter(list: List<DatabaseModel>)
     {
-
-        dbHelper.onUpgrade(sql,1,1)
+        itemList.clear()
+        itemList.addAll(list)
         notifyDataSetChanged()
     }
 
 
     override fun getItemCount(): Int {
-        return userCursor.count
+        return itemList.size
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -49,13 +54,6 @@ class MyAdapterDatabase(private var userCursor: Cursor, private val image: List<
         val yearView: TextView = itemView.findViewById(R.id.tv_number_database)
         val nameView: TextView = itemView.findViewById(R.id.tv_name_database)
         val imageView: ImageView = itemView.findViewById(R.id.roundedImageView_database)
-
-        fun bind(cursor: Cursor) {
-            val name = cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NAME)
-            val year = cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NUMBER)
-            nameView.text = cursor.getString(name)
-            yearView.text = cursor.getString(year)
-        }
 
     }
 

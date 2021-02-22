@@ -36,7 +36,7 @@ class Database: Fragment() {
     var userCursor: Cursor? = null
 
     var name: EditText? = null
-    var year: EditText? = null
+    var number: EditText? = null
     var search: EditText? = null
 
     var save: Button? = null
@@ -49,12 +49,9 @@ class Database: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.database_main, container, false)
-//        val fr: Fragment = root.findViewById(R.id.nav_database)
-//        fr.parentFragmentManager
-//        fr.onPrimaryNavigationFragmentChanged(true)
 
         name = root.findViewById(R.id.name_editText)
-        year = root.findViewById(R.id.year_editText)
+        number = root.findViewById(R.id.year_editText)
         search = root.findViewById(R.id.search_editText)
 
         save = root.findViewById(R.id.btn_save)
@@ -67,33 +64,24 @@ class Database: Fragment() {
         userCursor = database?.rawQuery("SELECT * FROM ${DatabaseHelper.TABLE}", null) // курсор делает запросы в БД
         recyclerView = root.findViewById(R.id.list)
         recyclerView?.layoutManager = LinearLayoutManager(context)
-        databaseAdapter = MyAdapterDatabase(userCursor!!, fill())
+        databaseAdapter = MyAdapterDatabase(fill())
         recyclerView?.adapter = databaseAdapter
+        reloadRecyclerList()
 
-
-
-
-            userCursor = database?.rawQuery("SELECT * FROM ${DatabaseHelper.TABLE} WHERE ${DatabaseHelper.COLUMN_ID} =?", arrayOf(userID.toString()))
-            userCursor?.moveToFirst()
-            //name?.setText(userCursor?.getString(1))
-            //year?.setText(userCursor?.getInt(2).toString())
-            userCursor?.close()
+        userCursor = database?.rawQuery("SELECT * FROM ${DatabaseHelper.TABLE} WHERE ${DatabaseHelper.COLUMN_ID} =?", arrayOf(userID.toString()))
+        userCursor?.moveToFirst()
+        userCursor?.close()
 
 
         delete?.setOnClickListener {
-
             delete()
-
         }
 
         save?.setOnClickListener {
-
             save()
-
         }
 
         btn_search?.setOnClickListener {
-            recyclerView?.clearOnScrollListeners()
             searching()
         }
 
@@ -104,7 +92,7 @@ class Database: Fragment() {
         return this.getImageId(R.array.cats_cartoons)
     }
 
-    fun getImageId(imageArrayId:Int):List<Int>
+    private fun getImageId(imageArrayId:Int):List<Int>
     {
         val tArray: TypedArray = resources.obtainTypedArray(imageArrayId)
         val count = tArray.length()
@@ -117,57 +105,63 @@ class Database: Fragment() {
         return ids.toList()
     }
 
-    fun delete() {
-        val t = year?.text.toString()
-        database?.execSQL("DELETE FROM ${DatabaseHelper.TABLE} WHERE ${DatabaseHelper.COLUMN_NUMBER} = ${year!!.text}")
-        reload()
+    private fun delete() {
+        database?.execSQL("DELETE FROM ${DatabaseHelper.TABLE} WHERE ${DatabaseHelper.COLUMN_NUMBER} = ${number!!.text}")
+
+        number!!.text.clear()
+        name!!.text.clear()
+        reloadRecyclerList()
 
     }
 
-    fun save() {
+    private fun save() {
         val content = ContentValues()
         content.put(DatabaseHelper.COLUMN_NAME, name!!.text.toString())
-        content.put(DatabaseHelper.COLUMN_NUMBER, year!!.text.toString().toInt())
+        content.put(DatabaseHelper.COLUMN_NUMBER, number!!.text.toString().toInt())
 
         if (userID > 0)
             database?.update(DatabaseHelper.TABLE, content, DatabaseHelper.COLUMN_ID + "=" + userID.toString(), null)
         else
             database?.insert(DatabaseHelper.TABLE, null, content)
-
-
-        reload()
+        number!!.text.clear()
+        name!!.text.clear()
+        reloadRecyclerList()
     }
 
-    fun searching() {
-        var query = search!!.text.toString()
-        database?.rawQuery("SELECT ${DatabaseHelper.COLUMN_NAME} FROM ${DatabaseHelper.TABLE} WHERE ${DatabaseHelper.COLUMN_NUMBER} = $query", null)
+    private fun searching() {
+        val query = search!!.text.toString()
 
-
-        reload()
-//        var cursor: Cursor = database?.rawQuery("SELECT * FROM ${DatabaseHelper.TABLE} WHERE ${DatabaseHelper.COLUMN_YEAR} LIKE %${search!!.text}%", null)!!
-//
-//        if (cursor.count < 0)
-//        {
-//            if (cursor.moveToFirst()) {
-//                do {
-//                    recyclerView?.adapter = MyAdapter(cursor, fill())
-//                } while (cursor.moveToNext())
-//            }
-//        }
-//        else Toast.makeText(this, "mistake", Toast.LENGTH_SHORT).show()
-//        cursor.close()
-//        reload()
+        if (query =="")
+            reloadRecyclerList()
+        else {
+            val search = database?.rawQuery("SELECT * FROM ${DatabaseHelper.TABLE} WHERE ${DatabaseHelper.COLUMN_NUMBER} = ?", arrayOf(query))
+            val value = getList(search)
+            databaseAdapter?.updateAdapter(value)
+        }
 
     }
 
-    fun reload() {
-
-
-        val intent = Intent(context, MainActivity()::class.java)
-        startActivity(intent)
-        database?.close()
+    private fun reloadRecyclerList() {
+        val cursor = database?.rawQuery("SELECT * FROM ${DatabaseHelper.TABLE}", null)
+        val value = getList(cursor)
+        databaseAdapter?.updateAdapter(value)
     }
 
+    private fun getList(cursor: Cursor?): MutableList<DatabaseModel> {
+        val list = mutableListOf<DatabaseModel>()
+        if (cursor != null && cursor.moveToFirst()) {
+            while (!cursor.isAfterLast) {
+                val number = cursor.getInt(2)
+                val desc = cursor.getString(1)
+
+                val model = DatabaseModel(number, desc)
+                list.add(model)
+                cursor.moveToNext()
+            }
+            cursor.close()
+        }
+        return list
+    }
 
 
 
