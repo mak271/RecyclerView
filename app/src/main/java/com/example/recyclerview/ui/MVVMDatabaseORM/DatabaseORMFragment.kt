@@ -1,4 +1,4 @@
-package com.example.recyclerview.ui.DatabaseORM
+package com.example.recyclerview.ui.MVVMDatabaseORM
 
 import android.content.res.TypedArray
 import android.os.Bundle
@@ -9,6 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerview.R
@@ -17,8 +21,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class DatabaseORMFragment: Fragment() {
-    private var daoDatabaseORM: DAODatabaseORM? = null
-    private var db: ORMDatabase? = null
+
+    private var myViewModel: MyViewModel? = null
 
     
     override fun onCreateView(
@@ -27,9 +31,6 @@ class DatabaseORMFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.database_orm_main, container, false)
-
-        db = ORMDatabase.getOrmDatabase(requireContext())
-        daoDatabaseORM = db?.daoDatabaseORM()
 
         root.apply {
 
@@ -41,9 +42,11 @@ class DatabaseORMFragment: Fragment() {
             recyclerView.layoutManager = LinearLayoutManager(context)
             val adapter = MyAdapterDatabaseORM(fill())
             recyclerView.adapter = adapter
-            GlobalScope.launch(Dispatchers.IO) {
-                reload(adapter)
-            }
+
+            myViewModel = ViewModelProvider(this@DatabaseORMFragment).get(MyViewModel::class.java)
+            myViewModel?.selectAll(context)?.observe(viewLifecycleOwner, Observer {
+                adapter.initList(it)
+            })
 
             findViewById<Button>(R.id.btn_saveORM).setOnClickListener {
                 if (number.text == null || number.text.toString() == "" || name.text == null || name.text.toString() == "") {
@@ -51,13 +54,18 @@ class DatabaseORMFragment: Fragment() {
                         .show()
                     return@setOnClickListener
                 }
-                GlobalScope.launch(Dispatchers.IO) {
-                    val dates = DatabaseORMModel(Integer.parseInt(number.text.toString()), name.text.toString())
-                    daoDatabaseORM?.insert(dates)
+                else {
+                    myViewModel?.insert(
+                        context,
+                        DatabaseORMModel(
+                            Integer.parseInt(number.text.toString()),
+                            name.text.toString()
+                        )
+                    )
                     number.text.clear()
                     name.text.clear()
-                    reload(adapter)
                 }
+
 
             }
 
@@ -67,34 +75,24 @@ class DatabaseORMFragment: Fragment() {
                     return@setOnClickListener
                 }
 
-                GlobalScope.launch(Dispatchers.IO) {
-                    if (daoDatabaseORM?.selectByID(Integer.parseInt(number.text.toString())) != null) {
-                        daoDatabaseORM?.deleteByID(Integer.parseInt(number.text.toString()))
-                        number.text.clear()
-                        reload(adapter)
-                    }
-                    else
-                        Toast.makeText(requireContext(), "Такой записи не существует", Toast.LENGTH_SHORT).show()
+                if (myViewModel?.selectById(context, Integer.parseInt(number.text.toString())) != null) {
+
+                    myViewModel?.deleteById(context, Integer.parseInt(number.text.toString()))
+                    number.text.clear()
                 }
+                else
+                    Toast.makeText(requireContext(), "Такой записи не существует", Toast.LENGTH_SHORT).show()
+
             }
 
             findViewById<Button>(R.id.btn_searchORM).setOnClickListener {
-                GlobalScope.launch(Dispatchers.IO) {
                     val searchText = search.text.toString()
-                    if (searchText == "")
-                        reload(adapter)
-                    else {
-                        val searchList = daoDatabaseORM?.selectByName("%$searchText%")
-                        if (searchList != null)
-                            requireActivity().runOnUiThread {
-                                adapter.initList(searchList)
-                            }
-                    }
-                }
+                    myViewModel?.selectByName(context, "%$searchText%")?.observe(viewLifecycleOwner, Observer {
+                        adapter.initList(it)
+                    })
             }
 
         }
-
         return root
     }
 
@@ -114,17 +112,6 @@ class DatabaseORMFragment: Fragment() {
         tArray.recycle()
         return ids.toList()
     }
-
-
-    private fun reload(adapter: MyAdapterDatabaseORM) {
-        val value = daoDatabaseORM?.selectAll()
-        if (value != null) {
-            requireActivity().runOnUiThread {
-                adapter.initList(value.toList())
-            }
-        }
-    }
-
 
 }
 
